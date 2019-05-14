@@ -103,12 +103,16 @@ class BlogController extends AbstractController
           'No category with '.$slug.' name, found in category\'s table.'
       );
     }else
-    {
-       $articles = $this->getDoctrine()
-              ->getRepository(Article::class)
-              ->findby(['category'=>$category->getId()],
-                       ['id'=>'DESC'],3);
-       return $this->render(
+    {  /* first method to call articles */
+       // $articles = $this->getDoctrine()
+       //        ->getRepository(Article::class)
+       //        ->findby(['category'=>$category->getId()],
+       //                 ['id'=>'DESC'],3);
+
+      /* second method to call articles */
+      $articles = $category->getArticles();
+
+      return $this->render(
        'blog/category.html.twig',
         [
                 'articles' => $articles,
