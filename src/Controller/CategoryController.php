@@ -1,5 +1,4 @@
 <?php
-// src/Controller/BlogController.php
 namespace App\Controller;
 
 
@@ -14,19 +13,19 @@ class CategoryController extends AbstractController
 {		
 	/**
   * @Route("/category", name="category_crud")
+  * @param  Request $request [description]
   */
   public function new(Request $request)
   {
       $category = new Category();
 
       $form = $this->createForm(
-          CategoryType::class, null,['method' => Request::METHOD_GET]);;
+          CategoryType::class);
 
       $form->handleRequest($request);
 
       if ($form->isSubmitted() && $form->isValid()) {
           $category = $form->getData();
-
           $entityManager = $this->getDoctrine()->getManager();
           $entityManager->persist($category);
           $entityManager->flush();
