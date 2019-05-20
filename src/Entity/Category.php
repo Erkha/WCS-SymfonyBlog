@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
@@ -29,7 +29,7 @@ class Category
 
     public function __construct()
     {
-        $this->articles = new ArrayCollection();
+        $this->articles = new Collection();
     }
 
 
@@ -53,7 +53,7 @@ class Category
     /**
     * @return Collection|Article[]
     */
-    public function getArticles(): ArrayCollection
+    public function getArticles(): Collection
     {
         return $this->articles;
     }

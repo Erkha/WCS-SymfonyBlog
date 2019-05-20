@@ -71,55 +71,27 @@ class BlogController extends AbstractController
               'slug' => $slug,
       ]
     );
-}
-/**
- * Getting a list of all articles from a slug category
- *
- * @param string $slug The slugger
- *
- * @Route("/category/{slug<^[a-z0-9-]+$>}",
- *     defaults={"slug" = null},
- *     name="show_category")
- *  @return Response A response instance
- */
- public function showByCategory(?string $slug) : Response
- {
-     if (!$slug) {
-            throw $this
-            ->createNotFoundException('No slug has been sent to find a category in category\'s table.');
-        }
+  }
 
-     $slug = preg_replace(
-      '/-/',
-      ' ', ucwords(trim(strip_tags($slug)), "-")
-        );
+  /**
+   * Getting a list of all articles from a category name
+   *
+   * @param string $slug The slugger
+   *
+   * @Route("/category/{name}",
+   *     name="show_category")
+   *  @return Response A response instance
+   */
+  public function showByCategory(Category $category) : Response
+   {
 
-     $category = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findOneBy(['name' => mb_strtolower($slug)]);
-
-     if (!$category) {
-          throw $this->createNotFoundException(
-          'No category with '.$slug.' name, found in category\'s table.'
-      );
-    }else
-    {  /* first method to call articles */
-       // $articles = $this->getDoctrine()
-       //        ->getRepository(Article::class)
-       //        ->findby(['category'=>$category->getId()],
-       //                 ['id'=>'DESC'],3);
-
-      /* second method to call articles */
-      $articles = $category->getArticles();
-
-      return $this->render(
-       'blog/category.html.twig',
-        [
-                'articles' => $articles,
-                'slug' => $slug,
-                'category' => $category
-        ]
-      );
-     }
-}
+    $articles = $category->getArticles();
+    return $this->render(
+     'blog/category.html.twig',
+      [
+              'articles' => $articles,
+              'category' => $category
+      ]
+    );       
+  }
 }
