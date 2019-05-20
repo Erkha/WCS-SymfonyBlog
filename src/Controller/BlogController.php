@@ -80,7 +80,7 @@ class BlogController extends AbstractController
    *
    * @param string $slug The slugger
    *
-   * @Route("/category/{name}",
+   * @Route("/blog/category/{name}",
    *     name="show_category")
    *  @return Response A response instance
    */

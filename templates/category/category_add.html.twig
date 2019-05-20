@@ -1,0 +1,16 @@
+{# templates/category/category_add.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Add a new category{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        <button type="submit" name="btnSearch">create</button>
+    {{ form_end(form) }}
+		<a href="{{ path('app_index') }}">
+			Back to homepage.
+		</a>
+		
+{% endblock %}
